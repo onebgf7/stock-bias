@@ -1,0 +1,28 @@
+name: 陸股產業乖離抓取
+
+on:
+  schedule:
+    - cron: '35 7 * * 1-5'  # 北京時間 15:35（UTC 07:35），週一到週五
+  workflow_dispatch:          # 允許手動觸發測試
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install packages
+        run: pip install -r requirements.txt
+
+      - name: 寫入 creds.json
+        run: echo '${{ secrets.CREDS_JSON }}' > creds.json
+
+      - name: 執行抓取
+        run: python main.py
