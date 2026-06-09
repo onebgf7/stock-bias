@@ -1,0 +1,8 @@
+akshare
+gspread
+oauth2client
+openpyxl
+requests
+urllib3
+numpy
+pandas
